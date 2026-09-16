@@ -86,6 +86,7 @@
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
   .hero-art{position:absolute; right:-40px; top:8%; width:44%; max-width:560px; opacity:.94; filter:drop-shadow(0 40px 70px rgba(0,0,0,.6));}
   .hero-inner{position:relative; z-index:2; padding:0 40px 90px; max-width:1280px; margin:0 auto; width:100%;}
+  .hero-logo{width:220px; margin-bottom:34px; opacity:.96;}
   .hero-eyebrow{
     font-family:'Permanent Marker', cursive; color:var(--cyan); font-size:17px; display:inline-block;
     transform:rotate(-1.4deg); margin-bottom:20px;
@@ -96,12 +97,17 @@
   }
   .hero-title .accent{color:var(--fire);}
   .hero-sub{margin-top:26px; max-width:460px; color:var(--paper-dim); font-size:16.5px; line-height:1.65;}
+  .hero-tagline{
+    margin-top:28px; font-family:'Anton', Impact, 'Arial Narrow Bold', sans-serif; text-transform:uppercase;
+    font-size:clamp(20px,2.4vw,30px); letter-spacing:.06em; color:var(--paper);
+    text-shadow:0 2px 18px rgba(0,0,0,.5);
+  }
   .hero-cta{margin-top:38px; display:flex; gap:16px; flex-wrap:wrap;}
 
   /* ---------------- Marquee strip ---------------- */
   .marquee{background:var(--fire); color:#0B0B0D; overflow:hidden; white-space:nowrap; border-bottom:1px solid var(--line);}
-  .marquee-track{display:inline-block; padding:12px 0; animation:scroll 22s linear infinite;}
-  .marquee-track span{font-family:'Anton', Impact, 'Arial Narrow Bold', sans-serif; text-transform:uppercase; font-size:15px; letter-spacing:.04em; margin:0 28px;}
+  .marquee-track{display:inline-flex; padding:12px 0; animation:scroll 26s linear infinite;}
+  .marquee-track span{font-family:'Anton', Impact, 'Arial Narrow Bold', sans-serif; text-transform:uppercase; font-size:15px; letter-spacing:.04em; margin:0 28px; white-space:nowrap; flex-shrink:0;}
   @keyframes scroll{from{transform:translateX(0);} to{transform:translateX(-50%);}}
 
   /* ---------------- Section shell ---------------- */
@@ -109,6 +115,11 @@
   .section-tight{padding:80px 0;}
   .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:52px; flex-wrap:wrap;}
   .section-eyebrow{font-family:'Permanent Marker', cursive; color:var(--magenta); font-size:15px; display:block; margin-bottom:14px; transform:rotate(-1deg); width:fit-content;}
+  /* Permanent Marker thiếu glyph dấu tiếng Việt đầy đủ -> vỡ phông khi có dấu. Dùng font Archivo cho các nhãn tiếng Việt có dấu. */
+  .section-eyebrow-vi{
+    font-family:'Archivo', sans-serif; font-weight:800; font-style:italic; color:var(--magenta); font-size:17px;
+    letter-spacing:.03em; display:block; margin-bottom:14px; width:fit-content;
+  }
   .section-title{font-family:'Anton', Impact, 'Arial Narrow Bold', sans-serif; text-transform:uppercase; font-size:clamp(30px,4vw,46px); line-height:1.0;}
   .section-desc{color:var(--paper-dim); max-width:420px; font-size:15px; line-height:1.65;}
 
@@ -145,34 +156,35 @@
   .swatch-dot{width:16px; height:16px; border-radius:50%; border:1.5px solid rgba(255,255,255,.25);}
 
   /* ---------------- Product detail ---------------- */
-  .breadcrumb{font-size:12.5px; color:var(--paper-dim); margin-bottom:36px;}
+  #view-product .section-tight{padding:36px 0 60px;}
+  .breadcrumb{font-size:12.5px; color:var(--paper-dim); margin-bottom:20px;}
   .breadcrumb a:hover{color:var(--paper);}
-  .pdp-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:70px;}
-  .pdp-gallery-main{aspect-ratio:1/1; background:var(--charcoal); overflow:hidden; margin-bottom:14px;}
+  .pdp-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+  .pdp-gallery-main{aspect-ratio:1/1; max-width:440px; background:var(--charcoal); overflow:hidden; margin-bottom:12px;}
   .pdp-gallery-main img{width:100%; height:100%; object-fit:cover;}
   .pdp-thumbs{display:flex; gap:12px;}
   .pdp-thumb{width:84px; height:84px; background:var(--charcoal); border:1.5px solid var(--line); overflow:hidden; cursor:pointer;}
   .pdp-thumb.active{border-color:var(--paper);}
   .pdp-thumb img{width:100%; height:100%; object-fit:cover;}
-  .pdp-title{font-family:'Anton', Impact, 'Arial Narrow Bold', sans-serif; text-transform:uppercase; font-size:clamp(30px,3.6vw,44px); line-height:1.02; margin-bottom:14px;}
-  .pdp-price{font-size:21px; font-weight:700; color:var(--fire); margin-bottom:26px;}
-  .pdp-desc{color:var(--paper-dim); font-size:15px; line-height:1.75; max-width:460px; margin-bottom:34px;}
-  .option-label{font-size:12.5px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; margin-bottom:12px; display:block;}
-  .color-options{display:flex; gap:12px; margin-bottom:30px;}
-  .color-opt{width:44px; height:44px; border-radius:50%; border:2px solid transparent; cursor:pointer; display:flex; align-items:center; justify-content:center;}
+  .pdp-title{font-family:'Anton', Impact, 'Arial Narrow Bold', sans-serif; text-transform:uppercase; font-size:clamp(26px,3.2vw,38px); line-height:1.02; margin-bottom:10px;}
+  .pdp-price{font-size:19px; font-weight:700; color:var(--fire); margin-bottom:16px;}
+  .pdp-desc{color:var(--paper-dim); font-size:14px; line-height:1.6; max-width:460px; margin-bottom:20px;}
+  .option-label{font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; margin-bottom:8px; display:block;}
+  .color-options{display:flex; gap:10px; margin-bottom:18px;}
+  .color-opt{width:38px; height:38px; border-radius:50%; border:2px solid transparent; cursor:pointer; display:flex; align-items:center; justify-content:center;}
   .color-opt.active{border-color:var(--fire);}
-  .color-opt .dot{width:30px; height:30px; border-radius:50%; border:1.5px solid rgba(255,255,255,.3);}
-  .size-options{display:flex; gap:10px; margin-bottom:34px; flex-wrap:wrap;}
+  .color-opt .dot{width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(255,255,255,.3);}
+  .size-options{display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap;}
   .size-opt{
-    min-width:52px; padding:12px 6px; text-align:center; border:1.5px solid var(--line); font-size:13.5px; font-weight:700;
+    min-width:46px; padding:10px 6px; text-align:center; border:1.5px solid var(--line); font-size:13px; font-weight:700;
     background:transparent; color:var(--paper);
   }
   .size-opt.active{border-color:var(--paper); background:var(--paper); color:var(--ink);}
-  .qty-row{display:flex; align-items:center; gap:18px; margin-bottom:26px;}
+  .qty-row{display:flex; align-items:center; gap:18px; margin-bottom:18px;}
   .qty-stepper{display:flex; align-items:center; border:1.5px solid var(--line);}
-  .qty-stepper button{background:none; border:none; color:var(--paper); width:42px; height:42px; font-size:18px;}
-  .qty-stepper span{width:40px; text-align:center; font-weight:700;}
-  .pdp-meta{margin-top:36px; border-top:1px solid var(--line); padding-top:26px; font-size:13px; color:var(--paper-dim); line-height:2;}
+  .qty-stepper button{background:none; border:none; color:var(--paper); width:38px; height:38px; font-size:17px;}
+  .qty-stepper span{width:36px; text-align:center; font-weight:700;}
+  .pdp-meta{margin-top:22px; border-top:1px solid var(--line); padding-top:18px; font-size:12.5px; color:var(--paper-dim); line-height:1.9;}
 
   @media(max-width:900px){.pdp-grid{grid-template-columns:1fr; gap:40px;}}
 
@@ -239,8 +251,6 @@
 
 <main>
 
-  <main>
-
   <!-- ============ HOME ============ -->
   <section id="view-home" class="view active">
     <div class="hero">
@@ -250,14 +260,16 @@
 
       <div class="hero-inner">
 
+        <img class="hero-logo" id="hero-logo" alt="ISOMETRIC">
+
         <span class="hero-eyebrow">Are you ready yet?</span>
 
         <h1 class="hero-title">
           <nobr>ARE YOU READY YET?.</nobr><br>
         </h1>
 
-        <p class="hero-sub">
-          FOCUS. ENDURE. PREVAIL. 
+        <p class="hero-tagline">
+          FOCUS. ENDURE. PREVAIL.
         </p>
 
         <div class="hero-cta">
@@ -272,9 +284,6 @@
 
       </div>
     </div>
-  </section>
-
-</main>
 
     <section class="section">
       <div class="wrap">
@@ -313,7 +322,7 @@
     <div class="wrap section">
       <div class="section-head">
         <div>
-          <span class="section-eyebrow">Cửa hàng</span>
+          <span class="section-eyebrow-vi">Cửa hàng</span>
           <h2 class="section-title">Toàn bộ sản phẩm</h2>
         </div>
         <p class="section-desc">Áo phông ôm body, mè thể thao 100%, thoải mái. Freeship đơn từ 500.000₫.</p>
@@ -364,7 +373,7 @@
   <!-- ============ CART ============ -->
   <section id="view-cart" class="view">
     <div class="wrap section-tight">
-      <span class="section-eyebrow">Giỏ hàng</span>
+      <span class="section-eyebrow-vi">Giỏ hàng</span>
       <h2 class="section-title" style="margin-bottom:44px;">Đơn hàng của bạn</h2>
       <div id="cart-content"></div>
     </div>
@@ -445,6 +454,21 @@ const PRODUCTS = [
 ];
 const SIZES = ['S','M','L','XL'];
 function fmtVND(n){ return n.toLocaleString('vi-VN') + '₫'; }
+
+/* ---------------- Marquee: auto-fill so it never shows a gap ---------------- */
+(function fillMarquee(){
+  const track = document.querySelector('.marquee-track');
+  if(!track) return;
+  const baseHTML = track.innerHTML;
+  const targetWidth = window.innerWidth * 2.2;
+  let guard = 0;
+  while(track.scrollWidth < targetWidth && guard < 20){
+    track.insertAdjacentHTML('beforeend', baseHTML);
+    guard++;
+  }
+  // duplicate the whole filled set once more so the -50% loop is seamless
+  track.insertAdjacentHTML('beforeend', track.innerHTML);
+})();
 
 /* ---------------- Nav ---------------- */
 function goTo(view, anchor){
@@ -554,7 +578,7 @@ function showToast(){
   clearTimeout(window._toastTimer);
   window._toastTimer = setTimeout(()=>t.classList.remove('show'), 2600);
 }
-document.getElementById('toast-cart-link').addEventListener('click', e=>{ e.preventDefault(); goTo('cart'); document.getElementById('toast').classList.remove('show'); });
+document.getElementById('toast-cart-link').addEventListener('click', e=>{ e.preventDefault(); goTo('cart'); renderCart(); document.getElementById('toast').classList.remove('show'); });
 
 function renderCart(){
   const wrap = document.getElementById('cart-content');
@@ -598,6 +622,7 @@ cartNavBtn.addEventListener('click', renderCart);
 document.getElementById('hdr-logo').src = ASSETS.logo_mono_white;
 document.getElementById('ftr-logo').src = ASSETS.logo_mono_white;
 document.getElementById('hero-art').src = ASSETS.bball;
+document.getElementById('hero-logo').src = ASSETS.logo_color;
 </script>
 </body>
 </html>
