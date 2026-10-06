@@ -103,7 +103,79 @@ h2{font-size:clamp(36px,8vw,64px);margin-bottom:6px}
   </div>
 </section>
 
-<section class="slip"><img src="images/detail.jpg" alt="ISOMETRIC pre-order" loading="lazy"></section>
+<!-- ===== ISOMETRIC: SIZE FINDER + BẢNG SIZE (dán 1 lần, nguyên khối) ===== -->
+<style>
+.sf{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 14px}
+.sf label{display:block;font-weight:700;font-size:14px;color:var(--mut)}
+.sf input{display:block;width:100%;margin-top:6px;padding:14px;font:inherit;font-size:16px;color:#fff;background:#14141f;border:2px solid #ff2d95;border-radius:14px;outline:none}
+.sf input:focus{border-color:#35d0ff;box-shadow:0 0 18px rgba(53,208,255,.45)}
+.sf button{grid-column:1/-1;cursor:pointer;border:0;color:#fff;font-family:Anton,Impact,sans-serif;text-transform:uppercase;letter-spacing:.04em;font-size:20px;padding:15px;border-radius:14px;background:var(--g)}
+.sf-out{border:2px dashed #35d0ff;border-radius:18px;padding:18px;margin-bottom:22px;text-align:center}
+.sf-out[hidden]{display:none}
+.sf-size{font-family:Anton,Impact,sans-serif;font-size:clamp(64px,18vw,110px);line-height:1}
+.sf-note{color:var(--mut);margin:8px 0 14px}
+.sf-cta{font-size:18px;padding:13px 28px;animation:none}
+.sf-chart{display:block;border-radius:18px;overflow:hidden}
+.sf-chart img{width:100%;display:block}
+.sf-cap{color:var(--mut);font-size:13px;margin-top:8px}
+@media(min-width:600px){.sf{grid-template-columns:1fr 1fr auto;align-items:end}.sf button{grid-column:auto;padding:15px 28px}}
+</style>
+
+<section id="size">
+  <h2>Tìm <span class="grad">size</span> trong 10 giây</h2>
+  <p class="p">Quà từ ISOMETRIC: nhập chiều cao và cân nặng, tụi mình chỉ size cho cậu. Miễn phí, không cần đăng ký.</p>
+
+  <div class="sf">
+    <label>Chiều cao (cm)<input id="sf-h" type="number" inputmode="decimal" placeholder="VD: 170"></label>
+    <label>Cân nặng (kg)<input id="sf-w" type="number" inputmode="decimal" placeholder="VD: 62"></label>
+    <button type="button" id="sf-go">Tìm size →</button>
+  </div>
+
+  <div id="sf-out" class="sf-out" hidden aria-live="polite">
+    <div>Size của cậu là</div>
+    <div class="sf-size grad" id="sf-size"></div>
+    <p class="sf-note" id="sf-note"></p>
+    <a class="cta sf-cta" id="sf-cta" href="#">Chốt đơn ngay →</a>
+  </div>
+
+  <a class="sf-chart" href="images/size-chart.jpg" target="_blank" rel="noopener">
+    <img src="images/size-chart.jpg" alt="ISOMETRIC - Bảng size tham khảo: S 155-160cm 45-55kg, M 161-167cm 55-65kg, L 168-175cm 65-75kg, XL 176-181cm 75-85kg, 2XL 182-187cm 85-90kg, 3XL 185-190cm 90-95kg" loading="lazy">
+  </a>
+  <p class="sf-cap">Bảng size mang tính tham khảo. Bấm vào ảnh để xem full màn hình. Phân vân giữa 2 size thì nhắn tụi mình nhé.</p>
+</section>
+
+<script>
+(function () {
+  var S = ['S','M','L','XL','2XL','3XL'];
+  var H = [160,167,175,181,187,190];   // chiều cao tối đa của từng size (cm)
+  var W = [55,65,75,85,90,95];         // cân nặng tối đa của từng size (kg)
+  function idx(v, a){ for (var i=0;i<a.length;i++){ if (v<=a[i]) return i; } return -1; }
+  function $(id){ return document.getElementById(id); }
+  function run(){
+    var h=parseFloat($('sf-h').value), w=parseFloat($('sf-w').value);
+    var out=$('sf-out'), size=$('sf-size'), note=$('sf-note'), cta=$('sf-cta');
+    out.hidden=false;
+    if(!h||!w||h<100||h>230||w<20||w>200){
+      size.textContent='?'; cta.style.display='none';
+      note.textContent='Nhập đủ chiều cao (cm) và cân nặng (kg) để tụi mình tính nhé.'; return;
+    }
+    var ih=idx(h,H), iw=idx(w,W);
+    if(ih<0||iw<0){
+      size.textContent='?'; cta.style.display='none';
+      note.textContent='Số đo của cậu vượt bảng size. Nhắn tụi mình để được tư vấn riêng nhé.'; return;
+    }
+    var i=Math.max(ih,iw);
+    size.textContent=S[i]; cta.style.display='';
+    cta.textContent='Chốt đơn size '+S[i]+' →';
+    note.textContent = ih!==iw
+      ? 'Chiều cao và cân nặng của cậu rơi vào 2 size khác nhau, tụi mình chọn size lớn hơn cho thoải mái. Thích mặc ôm thì lấy size '+S[Math.min(ih,iw)]+'.'
+      : 'Khớp cả chiều cao và cân nặng. Mặc là đẹp.';
+  }
+  $('sf-go').addEventListener('click', run);
+  ['sf-h','sf-w'].forEach(function(id){ $(id).addEventListener('keydown', function(e){ if(e.key==='Enter') run(); }); });
+})();
+</script>
+<!-- ===== HẾT KHỐI SIZE ===== --><section class="slip"><img src="images/detail.jpg" alt="ISOMETRIC pre-order" loading="lazy"></section>
 
 <div class="end">
   <h2>Sẵn sàng <span class="grad">chưa?</span></h2>
